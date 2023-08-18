@@ -41,24 +41,5 @@
     </div>
     <div class="block">Block 3</div>
   </header>
-  
-  <script>
-  async function fetchOnlineUsers() {
-    try {
-      const response = await fetch('script-online.php');
-      const data = await response.json();
-      
-      const onlineCounter = document.getElementById('online-counter');
-      onlineCounter.textContent = data.online;
-    } catch (error) {
-      console.error('Error fetching online users:', error);
-    }
-  }
-
-  fetchOnlineUsers(); // Отримати початкове значення лічильника
-
-  setInterval(fetchOnlineUsers, 1000); // Оновлювати лічильник кожну хвилину
-</script>
-
 </body>
 </html>
