@@ -15,20 +15,80 @@
     height: 10vh;
     width: 100vw;
   }
-  .block {
+  .block, .blockmain  {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid black;
   }
-  .block:nth-child(1),
-  .block:nth-child(2) {
-    flex-basis: 47%;
+  .block:nth-child(1) {
+    flex-basis: 94%;
   }
-  .block:nth-child(3) {
+  .block:nth-child(2) {
     flex-basis: 6%;
   }
+  .main {
+    display: flex;
+    height: 90vh;
+    width: 100vw;
+  }
+  .blockmain:nth-child(1), .blockmain:nth-child(3) {
+    flex-basis: 40%;
+  }
+  .blockmain:nth-child(2) {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+  }
+  .blockmain2 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+  }
+  .blockmain2:nth-child(1), .blockmain2:nth-child(2) {
+    flex-basis: 50%;
+  }
+  .blockmain2:nth-child(1) {
+    align-items: flex-end;
+  }
+    .blockmain:nth-child(3) {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        height: 80%;
+        margin-top: 100px;
+    }
+
+    .nickname {
+        width: 100%;
+        height: 20%;
+        background-color: lightgray;
+        text-align: center;
+        line-height: 100px; /* Це значення потрібно вираховувати вручну, щоб вирівняти текст по вертикалі */
+    }
+
+    .photo {
+        width: 100%;
+        height: 80%;
+        background-color: lightblue;
+    }
+    .centered-blockmain {
+    flex-basis: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 </style>
 </head>
 <body>
@@ -36,10 +96,58 @@
     <div class="block">
       <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="MyAwesomeBot_bot_bot" data-size="large" data-auth-url="https://zai4ik911test.github.io/" data-request-access="write"></script>
     </div>
-    <div class="block">
-      Онлайн: <span class="online" id="online-counter">0</span>
-    </div>
     <div class="block">Block 3</div>
   </header>
+  <div class="main">
+    <div class="blockmain">
+        <button id="changeStyleButton">Ігрок 1</button>
+    </div>
+    <div class="blockmain">
+        <div class="blockmain2">VS</div>
+        <div class="blockmain2">
+            <button>START</button>
+        </div>
+    </div>
+    <div class="blockmain">
+        <div class="container">
+            <div class="nickname">Нікнейм</div>
+            <div class="photo">ФОТО</div>
+            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
+        </div>
+    </div>
+  </div>
+  <script>
+const blockmain = document.querySelector('.blockmain');
+let isPlayerInfoShown = false;
+
+function showPlayerInfo() {
+    blockmain.innerHTML = `
+        <div class="container">
+            <div class="nickname">Нікнейм</div>
+            <div class="photo">ФОТО</div>
+            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
+        </div>
+    `;
+    isPlayerInfoShown = true;
+}
+
+function showInitialView() {
+    blockmain.innerHTML = `
+        <button id="changeStyleButton">Ігрок 1</button>
+    `;
+    isPlayerInfoShown = false;
+}
+
+blockmain.addEventListener('click', (event) => {
+    if (event.target.matches('#changeStyleButton')) {
+        if (isPlayerInfoShown) {
+            showInitialView();
+        } else {
+            showPlayerInfo();
+        }
+    }
+});
+
+  </script>
 </body>
 </html>
