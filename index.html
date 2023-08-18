@@ -150,7 +150,7 @@ blockmain.addEventListener('click', (event) => {
 });
 
   </script>
-  <script type="module">
+  <script>
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
         import { getDatabase, ref, push, set, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
@@ -179,17 +179,15 @@ blockmain.addEventListener('click', (event) => {
             photo_url: user.photo_url
         };
 
-        const usersRef = ref(db, 'users');
-        
-        // Перевіряємо, чи існує користувач з таким же id в базі даних
-        const queryRef = orderByChild(usersRef, 'id');
-        const query = equalTo(queryRef, user.id);
+        const usersRef = firebase.ref(db, 'users');
 
-        get(query).then((snapshot) => {
+        const queryRef = firebase.orderByChild(usersRef, 'id');
+        const query = firebase.equalTo(queryRef, user.id);
+
+        firebase.get(query).then((snapshot) => {
             if (!snapshot.exists()) {
-                // Якщо користувача з таким id ще немає, то додаємо його до бази даних
-                const userRef = push(usersRef);
-                set(userRef, userData);
+                const userRef = firebase.push(usersRef);
+                firebase.set(userRef, userData);
                 alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ', ' + user.photo_url + ')');
             } else {
                 alert('User with id ' + user.id + ' already exists in the database.');
@@ -197,7 +195,6 @@ blockmain.addEventListener('click', (event) => {
         });
     }
 </script>
-
 
 </body>
 </html>
