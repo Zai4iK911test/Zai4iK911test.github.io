@@ -96,11 +96,6 @@
     <div class="block">
 <!--       <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="MyAwesomeBot_bot_bot" data-size="large" data-auth-url="https://zai4ik911test.github.io/" data-request-access="write"></script> -->
     <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="MyAwesomeBot_bot_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
-<script type="text/javascript">
-  function onTelegramAuth(user) {
-    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ', ' + user.photo_url + ')');
-  }
-</script>
     </div>
     <div class="block">Block 3</div>
   </header>
@@ -155,5 +150,42 @@ blockmain.addEventListener('click', (event) => {
 });
 
   </script>
+  <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getDatabase, ref, get, child, runTransaction } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyBRJTg3yhWDIp_EKhehn7gqR3wYDcqMla4",
+    authDomain: "pooltest-8745f.firebaseapp.com",
+    databaseURL: "https://pooltest-8745f-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "pooltest-8745f",
+    storageBucket: "pooltest-8745f.appspot.com",
+    messagingSenderId: "913085881268",
+    appId: "1:913085881268:web:5754bbea52b395fdf4f0e1"
+  };
+
+
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase();
+</script>
+<script type="text/javascript">
+    function onTelegramAuth(user) {
+        const userData = {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            username: user.username,
+            photo_url: user.photo_url
+        };
+
+        // Додаємо дані користувача до бази даних Firebase
+        const userRef = push(ref(db, 'users'));
+        set(userRef, userData);
+
+        alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ', ' + user.photo_url + ')');
+    }
+</script>
+
 </body>
 </html>
