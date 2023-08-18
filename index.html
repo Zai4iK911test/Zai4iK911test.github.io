@@ -150,7 +150,7 @@ blockmain.addEventListener('click', (event) => {
 });
 
   </script>
-  <script>
+  <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
         import { getDatabase, ref, push, set, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
@@ -168,8 +168,7 @@ blockmain.addEventListener('click', (event) => {
         const app = initializeApp(firebaseConfig);
 
         const db = getDatabase();
-</script>
-<script>
+
     function onTelegramAuth(user) {
         const userData = {
             id: user.id,
