@@ -179,13 +179,25 @@ blockmain.addEventListener('click', (event) => {
             photo_url: user.photo_url
         };
 
-        // Додаємо дані користувача до бази даних Firebase
-        const userRef = push(ref(db, 'users'));
-        set(userRef, userData);
+        const usersRef = ref(db, 'users');
+        
+        // Перевіряємо, чи існує користувач з таким же id в базі даних
+        const queryRef = orderByChild(usersRef, 'id');
+        const query = equalTo(queryRef, user.id);
 
-        alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ', ' + user.photo_url + ')');
+        get(query).then((snapshot) => {
+            if (!snapshot.exists()) {
+                // Якщо користувача з таким id ще немає, то додаємо його до бази даних
+                const userRef = push(usersRef);
+                set(userRef, userData);
+                alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ', ' + user.photo_url + ')');
+            } else {
+                alert('User with id ' + user.id + ' already exists in the database.');
+            }
+        });
     }
 </script>
+
 
 </body>
 </html>
