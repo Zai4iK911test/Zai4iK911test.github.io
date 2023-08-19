@@ -197,6 +197,15 @@ const userData = {
         const app = initializeApp(firebaseConfig);
 
         const db = getDatabase();
+    // Зберігаємо userData в базі даних Firebase
+  const userDataRef = ref(db, 'user_data'); // Змініть 'user_data' на ваш шлях в базі даних
+  set(userDataRef, userData)
+    .then(() => {
+      console.log("Дані користувача збережено у базі даних.");
+    })
+    .catch((error) => {
+      console.error("Помилка при збереженні даних: ", error);
+    });
 
 </script>
 
