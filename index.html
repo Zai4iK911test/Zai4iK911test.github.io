@@ -97,7 +97,7 @@
   }
 </script> -->
     </div>
-    <div class="block">Ви авторизувались як:<span id="username"></span></div>
+    <div class="block">Ви авторизувались як: <span id="usernameSpan"></span></div>
     <div class="block">Block 3</div>
   </header>
   <div class="main">
@@ -180,6 +180,7 @@
           });
       } else {
         console.log("Користувач вже існує у базі даних.");
+        document.getElementById('usernameSpan').textContent = userData.username; // Вставка нікнейму користувача
       }
     });
 
