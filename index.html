@@ -54,6 +54,11 @@
   .blockmain2:nth-child(1) {
     align-items: flex-end;
   }
+    .blockmain:nth-child(3) {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
 
     .container {
         display: flex;
@@ -77,7 +82,12 @@
         height: 80%;
         background-color: lightblue;
     }
-
+    .centered-blockmain {
+    flex-basis: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 
 </style>
 </head>
@@ -112,10 +122,49 @@
         </div>
     </div>
     <div class="blockmain">
-        <button id="changeStyleButton2">Ігрок 2</button>
+        <div class="container">
+            <div class="nickname">Нікнейм</div>
+            <div class="photo">ФОТО</div>
+            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
+        </div>
     </div>
   </div>
-<script type="module">
+  <script>
+const blockmain = document.querySelector('.blockmain');
+let isPlayerInfoShown = false;
+
+function showPlayerInfo() {
+    blockmain.innerHTML = `
+        <div class="container">
+            <div class="nickname">Нікнейм</div>
+            <div class="photo">ФОТО</div>
+            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
+        </div>
+    `;
+    isPlayerInfoShown = true;
+}
+
+function showInitialView() {
+    blockmain.innerHTML = `
+        <button id="changeStyleButton">Ігрок 1</button>
+    `;
+    isPlayerInfoShown = false;
+}
+
+blockmain.addEventListener('click', (event) => {
+    if (event.target.matches('#changeStyleButton')) {
+        if (isPlayerInfoShown) {
+            showInitialView();
+        } else {
+            showPlayerInfo();
+        }
+    }
+});
+
+  </script>
+
+
+  <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
         import { getDatabase, ref, push, set, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
 
@@ -182,72 +231,7 @@
     });
 
 </script>
-  <script>
-const blockmain = document.querySelector('.blockmain:nth-child(1)');
-let isPlayerInfoShown = false;
-const blockmain2 = document.querySelector('.blockmain:nth-child(3)');
-let isPlayerInfoShown2 = false;
 
-function showPlayerInfo(userData) {
-    blockmain.innerHTML = `
-        <div class="container">
-            <div class="nickname">${userData.first_name} ${userData.last_name}</div>
-            <div class="photo">
-                <img src="${userData.photo_url}" alt="Фото користувача">
-            </div>
-            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
-        </div>
-    `;
-    isPlayerInfoShown = true;
-}
-
-function showPlayerInfo2() {
-    blockmain2.innerHTML = `
-        <div class="container">
-            <div class="nickname">Нікнейм</div>
-            <div class="photo">ФОТО</div>
-            <div class="exit"><button id="changeStyleButton2">ВИЙТИ</button></div>
-        </div>
-    `;
-    isPlayerInfoShown2 = true;
-}
-
-function showInitialView() {
-    blockmain.innerHTML = `
-        <button id="changeStyleButton">Ігрок 1</button>
-    `;
-    isPlayerInfoShown = false;
-}
-
-function showInitialView2() {
-    blockmain2.innerHTML = `
-        <button id="changeStyleButton2">Ігрок 2</button>
-    `;
-    isPlayerInfoShown2 = false;
-}
-
-blockmain.addEventListener('click', (event) => {
-    if (event.target.matches('#changeStyleButton')) {
-        if (isPlayerInfoShown) {
-            showInitialView();
-        } else {
-            showPlayerInfo(userData); // Передача об'єкта з даними користувача
-        }
-    }
-});
-
-
-blockmain2.addEventListener('click', (event) => {
-    if (event.target.matches('#changeStyleButton2')) {
-        if (isPlayerInfoShown2) {
-            showInitialView2();
-        } else {
-            showPlayerInfo2();
-        }
-    }
-});
-
-  </script>
 
 </body>
 </html>
