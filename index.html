@@ -182,50 +182,30 @@ blockmain.addEventListener('click', (event) => {
         const app = initializeApp(firebaseConfig);
 
         const db = getDatabase();
+// Отримуємо параметри з URL
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+const first_name = urlParams.get('first_name');
+const last_name = urlParams.get('last_name');
+const username = urlParams.get('username');
+const photo_url = urlParams.get('photo_url');
+const userData = {
+    id: id,
+    first_name: first_name,
+    last_name: last_name,
+    username: username,
+    photo_url: photo_url
+  };
 
-  // Отримуємо параметри з URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get('id');
-
-  // Перевіряємо, чи користувач з таким id вже існує в базі даних
-  const userDatabaseRef = ref(db, 'user_data'); // Змініть 'user_data' на ваш шлях в базі даних
-
-  const query = orderByChild(userDatabaseRef, 'id');
-  const userWithSameIdQuery = equalTo(query, id);
-
-  get(userWithSameIdQuery)
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log("Користувач з таким id вже існує в базі даних.");
-      } else {
-        // Якщо користувача з таким id немає, зберігаємо його дані
-        const first_name = urlParams.get('first_name');
-        const last_name = urlParams.get('last_name');
-        const username = urlParams.get('username');
-        const photo_url = urlParams.get('photo_url');
-
-        const userData = {
-          id: id,
-          first_name: first_name,
-          last_name: last_name,
-          username: username,
-          photo_url: photo_url
-        };
-
-        const newUserDataRef = push(ref(db, 'user_data')); // Змініть 'user_data' на ваш шлях в базі даних
-        set(newUserDataRef, userData)
-          .then(() => {
-            console.log("Дані користувача збережено у базі даних.");
-          })
-          .catch((error) => {
-            console.error("Помилка при збереженні даних: ", error);
-          });
-      }
+  // Зберігаємо userData в базі даних Firebase
+  const userDataRef = ref(db, 'user_data'); // Змініть 'user_data' на ваш шлях в базі даних
+  set(userDataRef, userData)
+    .then(() => {
+      console.log("Дані користувача збережено у базі даних.");
     })
     .catch((error) => {
-      console.error("Помилка при перевірці наявності користувача: ", error);
+      console.error("Помилка при збереженні даних: ", error);
     });
-
 </script>
 
 
