@@ -162,22 +162,7 @@ blockmain.addEventListener('click', (event) => {
 });
 
   </script>
-  <script>
-// Отримуємо параметри з URL
-const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get('id');
-const first_name = urlParams.get('first_name');
-const last_name = urlParams.get('last_name');
-const username = urlParams.get('username');
-const photo_url = urlParams.get('photo_url');
-const userData = {
-            id: id,
-            first_name: first_name,
-            last_name: last_name,
-            username: username,
-            photo_url: photo_url
-};
-</script>
+
 
   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
@@ -197,32 +182,50 @@ const userData = {
         const app = initializeApp(firebaseConfig);
 
         const db = getDatabase();
-  // Генеруємо унікальний ключ для нового запису
-  const newUserDataRef = push(ref(db, 'user_data')); // Змініть 'user_data' на ваш шлях в базі даних
-  set(newUserDataRef, userData)
-    .then(() => {
-      console.log("Дані користувача збережено у базі даних.");
-    })
-    .catch((error) => {
-      console.error("Помилка при збереженні даних: ", error);
-    });
 
-    // Отримуємо дані всіх користувачів з бази даних
+  // Отримуємо параметри з URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+
+  // Перевіряємо, чи користувач з таким id вже існує в базі даних
   const userDatabaseRef = ref(db, 'user_data'); // Змініть 'user_data' на ваш шлях в базі даних
 
-  get(userDatabaseRef)
+  const query = orderByChild(userDatabaseRef, 'id');
+  const userWithSameIdQuery = equalTo(query, id);
+
+  get(userWithSameIdQuery)
     .then((snapshot) => {
       if (snapshot.exists()) {
-        const userDataObject = snapshot.val();
-        // Тепер у userDataObject знаходиться об'єкт з усіма даними користувачів
-        console.log(userDataObject);
+        console.log("Користувач з таким id вже існує в базі даних.");
       } else {
-        console.log("Немає даних користувачів в базі даних.");
+        // Якщо користувача з таким id немає, зберігаємо його дані
+        const first_name = urlParams.get('first_name');
+        const last_name = urlParams.get('last_name');
+        const username = urlParams.get('username');
+        const photo_url = urlParams.get('photo_url');
+
+        const userData = {
+          id: id,
+          first_name: first_name,
+          last_name: last_name,
+          username: username,
+          photo_url: photo_url
+        };
+
+        const newUserDataRef = push(ref(db, 'user_data')); // Змініть 'user_data' на ваш шлях в базі даних
+        set(newUserDataRef, userData)
+          .then(() => {
+            console.log("Дані користувача збережено у базі даних.");
+          })
+          .catch((error) => {
+            console.error("Помилка при збереженні даних: ", error);
+          });
       }
     })
     .catch((error) => {
-      console.error("Помилка при отриманні даних: ", error);
+      console.error("Помилка при перевірці наявності користувача: ", error);
     });
+
 </script>
 
 
