@@ -200,8 +200,8 @@ const userData = {
 
 // Перевіряємо, чи користувач вже зберігався в базі даних
 async function checkIfUserExists(userData) {
-    const userRef = ref(db, 'users');
-    const query = orderByChild(userRef, 'id');
+    const usersRef = ref(db, 'users');
+    const query = orderByChild(usersRef, 'id');
     const snapshot = await get(query.equalTo(userData.id));
     return snapshot.exists();
 }
