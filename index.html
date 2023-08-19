@@ -198,23 +198,7 @@ const userData = {
 
         const db = getDatabase();
 
-        const usersRef = ref(db, 'users');
-        
-        // Перевіряємо, чи існує користувач з таким же id в базі даних
-        const userRef = ref(db, 'users');
-        const query = equalTo(userRef, 'id', id);
-
-
-        get(query).then((snapshot) => {
-            if (!snapshot.exists()) {
-                // Якщо користувача з таким id ще немає, то додаємо його до бази даних
-                const userRef = push(usersRef);
-                set(userRef, userData);
-                alert('Logged in as ' + first_name + ' ' + last_name + ' (' + id + (username ? ', @' + username : '') + ', ' + photo_url + ')');
-            } else {
-                alert('User with id ' + id + ' already exists in the database.');
-            }
-        });
+console.log(userData);
 </script>
 
 
