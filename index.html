@@ -191,10 +191,10 @@ let isPlayerInfoShown = false;
 const blockmain2 = document.querySelector('.blockmain:nth-child(3)');
 let isPlayerInfoShown2 = false;
 
-function showPlayerInfo(id, first_name, last_name, photo_url) {
+function showPlayerInfo(id, username, photo_url) {
     blockmain.innerHTML = `
         <div class="container">
-            <div class="nickname">${first_name} ${last_name}</div>
+            <div class="nickname">${username}</div>
             <div class="photo"><img src="${photo_url}" alt="Фото користувача"></div>
             <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
         </div>
@@ -202,10 +202,10 @@ function showPlayerInfo(id, first_name, last_name, photo_url) {
     isPlayerInfoShown = true;
 }
 
-function showPlayerInfo2(id, first_name, last_name, photo_url) {
+function showPlayerInfo2(id, username, photo_url) {
     blockmain2.innerHTML = `
         <div class="container">
-            <div class="nickname">${first_name} ${last_name}</div>
+            <div class="nickname">${username}</div>
             <div class="photo"><img src="${photo_url}" alt="Фото користувача"></div>
             <div class="exit"><button id="changeStyleButton2">ВИЙТИ</button></div>
         </div>
@@ -231,7 +231,7 @@ blockmain.addEventListener('click', (event) => {
         if (isPlayerInfoShown) {
             showInitialView();
         } else {
-            showPlayerInfo(userData.id, userData.first_name, userData.last_name, userData.photo_url); 
+            showPlayerInfo(userData.id, userData.username, userData.photo_url); 
         }
     }
 });
@@ -241,7 +241,7 @@ blockmain2.addEventListener('click', (event) => {
         if (isPlayerInfoShown2) {
             showInitialView2();
         } else {
-            showPlayerInfo2(userData.id, userData.first_name, userData.last_name, userData.photo_url);
+            showPlayerInfo2(userData.id, userData.username, userData.photo_url);
         }
     }
 });
