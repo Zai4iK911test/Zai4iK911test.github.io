@@ -202,16 +202,16 @@ const userData = {
         
         // Перевіряємо, чи існує користувач з таким же id в базі даних
         const queryRef = orderByChild(usersRef, 'id');
-        const query = equalTo(queryRef, user.id);
+        const query = equalTo(queryRef, id);
 
         get(query).then((snapshot) => {
             if (!snapshot.exists()) {
                 // Якщо користувача з таким id ще немає, то додаємо його до бази даних
                 const userRef = push(usersRef);
                 set(userRef, userData);
-                alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ', ' + user.photo_url + ')');
+                alert('Logged in as ' + first_name + ' ' + last_name + ' (' + id + (username ? ', @' + username : '') + ', ' + photo_url + ')');
             } else {
-                alert('User with id ' + user.id + ' already exists in the database.');
+                alert('User with id ' + id + ' already exists in the database.');
             }
         });
 </script>
