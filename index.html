@@ -197,9 +197,9 @@ const userData = {
         const app = initializeApp(firebaseConfig);
 
         const db = getDatabase();
-    // Зберігаємо userData в базі даних Firebase
-  const userDataRef = ref(db, 'user_data'); // Змініть 'user_data' на ваш шлях в базі даних
-  set(userDataRef, userData)
+  // Генеруємо унікальний ключ для нового запису
+  const newUserDataRef = push(ref(db, 'user_data')); // Змініть 'user_data' на ваш шлях в базі даних
+  set(newUserDataRef, userData)
     .then(() => {
       console.log("Дані користувача збережено у базі даних.");
     })
@@ -207,6 +207,22 @@ const userData = {
       console.error("Помилка при збереженні даних: ", error);
     });
 
+    // Отримуємо дані всіх користувачів з бази даних
+  const userDatabaseRef = ref(db, 'user_data'); // Змініть 'user_data' на ваш шлях в базі даних
+
+  get(userDatabaseRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const userDataObject = snapshot.val();
+        // Тепер у userDataObject знаходиться об'єкт з усіма даними користувачів
+        console.log(userDataObject);
+      } else {
+        console.log("Немає даних користувачів в базі даних.");
+      }
+    })
+    .catch((error) => {
+      console.error("Помилка при отриманні даних: ", error);
+    });
 </script>
 
 
