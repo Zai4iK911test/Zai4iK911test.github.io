@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -197,29 +197,6 @@ const userData = {
         const app = initializeApp(firebaseConfig);
 
         const db = getDatabase();
-
-// Перевіряємо, чи користувач вже зберігався в базі даних
-async function checkIfUserExists(userData) {
-    const usersRef = ref(db, 'users');
-    const snapshot = await get(query(usersRef, orderByChild('id'), equalTo(userData.id)));
-    return snapshot.exists();
-}
-
-// Зберігаємо дані користувача в базі даних
-async function saveUserDataToFirebase(userData) {
-    if (!(await checkIfUserExists(userData))) {
-        const usersRef = ref(db, 'users');
-        const newUserRef = push(usersRef);
-        await set(newUserRef, userData);
-        console.log('User data saved to Firebase:', userData);
-    } else {
-        console.log('User already exists in the database:', userData);
-    }
-}
-
-// Викликаємо функцію для збереження даних користувача в базі даних
-saveUserDataToFirebase(userData);
-
 
 </script>
 
