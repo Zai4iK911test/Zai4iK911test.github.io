@@ -209,13 +209,12 @@ function showPlayerInfo2(id, first_name, last_name, photo_url) {
     isPlayerInfoShown2 = true;
 }
 
-// Додамо обробку натискання кнопок "Ігрок 1" та "Ігрок 2"
+// Передаємо дані користувача для вставки
 blockmain.addEventListener('click', (event) => {
     if (event.target.matches('#changeStyleButton')) {
         if (isPlayerInfoShown) {
             showInitialView();
         } else {
-            // Передаємо дані користувача для вставки
             showPlayerInfo(userData.id, userData.first_name, userData.last_name, userData.photo_url); 
         }
     }
@@ -226,11 +225,11 @@ blockmain2.addEventListener('click', (event) => {
         if (isPlayerInfoShown2) {
             showInitialView2();
         } else {
-            // Передаємо дані користувача для вставки
             showPlayerInfo2(userData.id, userData.first_name, userData.last_name, userData.photo_url);
         }
     }
 });
+
 
 
   </script>
