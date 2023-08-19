@@ -212,7 +212,19 @@ function showPlayerInfo2(id, first_name, last_name, photo_url) {
     `;
     isPlayerInfoShown2 = true;
 }
+function showInitialView() {
+    blockmain.innerHTML = `
+        <button id="changeStyleButton">Ігрок 1</button>
+    `;
+    isPlayerInfoShown = false;
+}
 
+function showInitialView2() {
+    blockmain2.innerHTML = `
+        <button id="changeStyleButton2">Ігрок 2</button>
+    `;
+    isPlayerInfoShown2 = false;
+}
 // Передаємо дані користувача для вставки
 blockmain.addEventListener('click', (event) => {
     if (event.target.matches('#changeStyleButton')) {
