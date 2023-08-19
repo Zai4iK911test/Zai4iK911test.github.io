@@ -161,6 +161,19 @@ blockmain.addEventListener('click', (event) => {
 });
 
   </script>
+  <script>
+// Отримуємо параметри з URL
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+const first_name = urlParams.get('first_name');
+const last_name = urlParams.get('last_name');
+const username = urlParams.get('username');
+const photo_url = urlParams.get('photo_url');
+
+// Вставляємо отримані дані у відповідні елементи
+document.querySelector('.nickname').textContent = `Нікнейм: ${username}`;
+document.querySelector('.photo').style.backgroundImage = `url(${photo_url})`;
+</script>
   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
         import { getDatabase, ref, push, set, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
