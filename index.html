@@ -122,11 +122,9 @@ let isPlayerInfoShown2 = false;
 function showPlayerInfo(userData) {
     blockmain.innerHTML = `
         <div class="container">
-            <div class="nickname">${userData.first_name} ${userData.last_name}</div>
-            <div class="photo">
-                <img src="${userData.photo_url}" alt="Фото користувача">
-            </div>
-            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
+            <div class="nickname">Нікнейм</div>
+            <div class="photo">ФОТО</div>
+            <div class="exit"><button id="changeStyleButton2">ВИЙТИ</button></div>
         </div>
     `;
     isPlayerInfoShown = true;
@@ -162,7 +160,7 @@ blockmain.addEventListener('click', (event) => {
         if (isPlayerInfoShown) {
             showInitialView();
         } else {
-            showPlayerInfo(userData); // Передача об'єкта з даними користувача
+            showPlayerInfo(); 
         }
     }
 });
