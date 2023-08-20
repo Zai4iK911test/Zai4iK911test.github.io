@@ -238,12 +238,9 @@ function showPlayerInfo(id, username, photo_url) {
     `;
     isPlayerInfoShown = true;
 
-  const playerRef = ref(db, "player/player1"); // Змініть 'player1' на ваш шлях до даного гравця в базі даних
+  const playerRef = ref(db, "player/player1");
     runTransaction(playerRef, (currentData) => {
-        if (currentData === null || isNaN(currentData)) {
-            return 1; // Якщо значення не існує або не є числовим, встановити 1
-        }
-        return currentData + 1; // Збільшити значення на 1
+        return 1; //  значення на 1
     }).then(() => {
         console.log("Значення player1 змінено.");
     }).catch((error) => {
