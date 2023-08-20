@@ -265,6 +265,13 @@ function showPlayerInfo2(id, username, photo_url) {
     runTransaction(playerRef, (currentData) => {
         return 1; //  значення на 1
     });
+    const playerIUPRef = ref(db, "player2");
+    runTransaction(playerIUPRef, (currentData) => {
+        currentData.id = id;
+        currentData.username = username;
+        currentData.photo_url = photo_url;
+        return currentData; 
+    });
 }
 function showInitialView() {
     blockmain.innerHTML = `
@@ -291,9 +298,16 @@ function showInitialView2() {
     `;
     isPlayerInfoShown2 = false;
 
-        const playerRef = ref(db, "player2/player2");
+    const playerRef = ref(db, "player2/player2");
     runTransaction(playerRef, (currentData) => {
         return 0; 
+    });
+    const playerIUPRef = ref(db, "player2");
+    runTransaction(playerIUPRef, (currentData) => {
+        currentData.id = "";
+        currentData.username = "";
+        currentData.photo_url = "";
+        return currentData; 
     });
 }
 // Передаємо дані користувача для вставки
