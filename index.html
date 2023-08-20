@@ -184,34 +184,53 @@
       }
     });
     
-function initializePlayerRef() {
+function initializePlayer1Ref() {
  const playerRef = ref(db, "player1");
   // Зчитування даних з бази даних
 get(playerRef)
   .then((snapshot) => {
     if (snapshot.exists()) {
       const players = snapshot.val();
-      const player1Score = players.player1;
+      const player1 = players.player1;
+      const id = players.id;
+      const username = players.username;
+      const photo_url = players.photo_url;
 
-      if (player1Score === 0) {
-        // Дії, які потрібно виконати, коли player1 = 0
-        console.log("Player 1 score is 0.");
+      if (player1 === 0) {
+        showInitialView();
       } else {
-        // Дії, які потрібно виконати, коли player1 не дорівнює 0
-        console.log("Player 1 score is not 0.");
-      }
-    } else {
-      console.log("Data not found.");
+         showPlayerInfo(id, username, photo_url);
+        }
     }
-  })
-  .catch((error) => {
-    console.error("Error reading data:", error);
   });
 }
 
 // Виклик функції при старті
-initializePlayerRef();
+initializePlayer1Ref();
 
+  function initializePlayer2Ref() {
+ const playerRef = ref(db, "player2");
+  // Зчитування даних з бази даних
+get(playerRef)
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      const players = snapshot.val();
+      const player2 = players.player2;
+      const id = players.id;
+      const username = players.username;
+      const photo_url = players.photo_url;
+
+      if (player2 === 0) {
+        showInitialView2();
+      } else {
+         showPlayerInfo2(id, username, photo_url);
+        }
+    }
+  });
+}
+
+// Виклик функції при старті
+initializePlayer2Ref();
 
 
 
