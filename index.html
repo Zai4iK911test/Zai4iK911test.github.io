@@ -238,7 +238,7 @@ function showPlayerInfo(id, username, photo_url) {
     `;
     isPlayerInfoShown = true;
 
-    const playerRef = ref(db, "player/player1");
+    const playerRef = ref(db, "player1/player1");
     runTransaction(playerRef, (currentData) => {
         return 1; //  значення на 1
     });
@@ -254,7 +254,7 @@ function showPlayerInfo2(id, username, photo_url) {
     `;
     isPlayerInfoShown2 = true;
 
-    const playerRef = ref(db, "player/player2");
+    const playerRef = ref(db, "player2/player2");
     runTransaction(playerRef, (currentData) => {
         return 1; //  значення на 1
     });
@@ -265,7 +265,7 @@ function showInitialView() {
     `;
     isPlayerInfoShown = false;
 
-      const playerRef = ref(db, "player/player1");
+      const playerRef = ref(db, "player1/player1");
     runTransaction(playerRef, (currentData) => {
         return 0; 
     });
@@ -277,7 +277,7 @@ function showInitialView2() {
     `;
     isPlayerInfoShown2 = false;
 
-        const playerRef = ref(db, "player/player2");
+        const playerRef = ref(db, "player2/player2");
     runTransaction(playerRef, (currentData) => {
         return 0; 
     });
