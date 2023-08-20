@@ -193,16 +193,26 @@ let isPlayerInfoShown = false;
 const blockmain2 = document.querySelector('.blockmain:nth-child(3)');
 let isPlayerInfoShown2 = false;
 
-function showPlayerInfo(id, username, photo_url) {
-    blockmain.innerHTML = `
-        <div class="container">
-            <div class="nickname">${username}</div>
-            <div class="photo"><img src="${photo_url}" alt="Фото користувача"></div>
-            <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
-        </div>
-    `;
-    isPlayerInfoShown = true;
-}
+ function showPlayerInfo(id, username, photo_url) {
+        blockmain.innerHTML = `
+            <div class="container">
+                <div class="nickname">${username}</div>
+                <div class="photo"><img src="${photo_url}" alt="Фото користувача"></div>
+                <div class="exit"><button id="changeStyleButton">ВИЙТИ</button></div>
+            </div>
+        `;
+
+        const occupiedSeatRef = ref(db, 'occupiedSeats/' + id);
+        set(occupiedSeatRef, { username: username, photo_url: photo_url })
+            .then(() => {
+                console.log("Інформація про зайняте місце збережена у базі даних.");
+            })
+            .catch((error) => {
+                console.error("Помилка при збереженні інформації про місце: ", error);
+            });
+
+        isPlayerInfoShown = true;
+    }
 
 function showPlayerInfo2(id, username, photo_url) {
     blockmain2.innerHTML = `
@@ -247,7 +257,24 @@ blockmain2.addEventListener('click', (event) => {
         }
     }
 });
+ // Додати функцію displayOccupiedSeats в кінець скрипту
+    function displayOccupiedSeats() {
+        const occupiedSeatsRef = ref(db, 'occupiedSeats');
+        get(occupiedSeatsRef).then((snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const seatId = childSnapshot.key;
+                const seatInfo = childSnapshot.val();
+                const blockmain = document.querySelector(`.blockmain:nth-child(${seatId})`);
 
+                if (blockmain && !isPlayerInfoShown) {
+                    showPlayerInfo(seatId, seatInfo.username, seatInfo.photo_url);
+                }
+            });
+        });
+    }
+
+    // Виклик функції після завантаження сторінки
+    displayOccupiedSeats();
 
 
   </script>
