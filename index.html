@@ -207,6 +207,7 @@ get(playerRef)
 
 // Виклик функції при старті
 initializePlayer1Ref();
+    setInterval(initializePlayer1Ref, 1000);
 
   function initializePlayer2Ref() {
  const playerRef = ref(db, "player2");
@@ -231,6 +232,7 @@ get(playerRef)
 
 // Виклик функції при старті
 initializePlayer2Ref();
+    setInterval(initializePlayer2Ref, 1000);
 
 
 
