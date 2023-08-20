@@ -242,8 +242,8 @@ function showPlayerInfo(id, username, photo_url) {
     runTransaction(playerRef, (currentData) => {
         return 1; //  значення на 1
     });
-    playerRef = ref(db, "player1");
-    runTransaction(playerRef, (currentData) => {
+    const playerIDPRef = ref(db, "player1");
+    runTransaction(playerIDPRef, (currentData) => {
         currentData.id = id;
         currentData.username = username;
         currentData.photo_url = photo_url;
