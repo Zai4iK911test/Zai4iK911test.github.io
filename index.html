@@ -239,6 +239,23 @@ function showPlayerInfo(id, username, photo_url) {
         </div>
     `;
     isPlayerInfoShown = true;
+  const playerRef = ref(db, "player");
+const playerData = await get(playerRef);
+
+if (playerData.exists()) {
+    const players = playerData.val();
+    const player1Score = players.player1;
+
+    if (player1Score === 0) {
+        // Оновлюємо значення player1 на 1
+        await set(ref(db, 'player/player1'), 1);
+        console.log("Player 1 score updated to 1.");
+    } else {
+        console.log("Player 1 score is not 0.");
+    }
+} else {
+    console.log("Data not found.");
+}
 }
 
 function showPlayerInfo2(id, username, photo_url) {
