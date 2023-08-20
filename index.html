@@ -183,28 +183,6 @@
         document.getElementById('usernameSpan').textContent = userData.username; // Вставка нікнейму користувача
       }
     });
-    
-db.ref('players/player1').on('value', (snapshot) => {
-    const player1Data = snapshot.val();
-    if (player1Data) {
-        // Оновити інтерфейс для Ігрока 1 з інформацією з бази даних
-        showPlayerInfo(userData.id, player1Data.username, player1Data.photo_url);
-    } else {
-        // Якщо запис про Ігрока 1 видалено, показати початковий вигляд
-        showInitialView();
-    }
-});
-
-db.ref('players/player2').on('value', (snapshot) => {
-    const player2Data = snapshot.val();
-    if (player2Data) {
-        // Оновити інтерфейс для Ігрока 2 з інформацією з бази даних
-        showPlayerInfo2(userData.id, player2Data.username, player2Data.photo_url);
-    } else {
-        // Якщо запис про Ігрока 2 видалено, показати початковий вигляд
-        showInitialView2();
-    }
-});
 
 </script>
  <script>
@@ -249,43 +227,26 @@ function showInitialView2() {
     `;
     isPlayerInfoShown2 = false;
 }
+// Передаємо дані користувача для вставки
 blockmain.addEventListener('click', (event) => {
     if (event.target.matches('#changeStyleButton')) {
         if (isPlayerInfoShown) {
             showInitialView();
-            // Очистити інформацію про гравця у Firebase
-            db.ref('players/player1').remove();
         } else {
-            showPlayerInfo(userData.id, userData.username, userData.photo_url);
-            // Записати інформацію про гравця у Firebase
-            db.ref('players/player1').set({
-                userId: userData.id,
-                username: userData.username,
-                photo_url: userData.photo_url
-            });
+            showPlayerInfo(userData.id, userData.username, userData.photo_url); 
         }
     }
 });
-
 
 blockmain2.addEventListener('click', (event) => {
     if (event.target.matches('#changeStyleButton2')) {
         if (isPlayerInfoShown2) {
             showInitialView2();
-            // Очистити інформацію про гравця у Firebase
-            db.ref('players/player2').remove();
         } else {
             showPlayerInfo2(userData.id, userData.username, userData.photo_url);
-            // Записати інформацію про гравця у Firebase
-            db.ref('players/player2').set({
-                userId: userData.id,
-                username: userData.username,
-                photo_url: userData.photo_url
-            });
         }
     }
 });
-
 
 
 
