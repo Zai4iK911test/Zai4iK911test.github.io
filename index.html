@@ -183,16 +183,15 @@
         document.getElementById('usernameSpan').textContent = userData.username; // Вставка нікнейму користувача
       }
     });
-
+    
 function initializePlayerRef() {
- const playerRef = ref(db, "player");
+ const playerRef = ref(db, "player1/player1");
   // Зчитування даних з бази даних
 get(playerRef)
   .then((snapshot) => {
     if (snapshot.exists()) {
       const players = snapshot.val();
       const player1Score = players.player1;
-       const player2Score = players.player2;
 
       if (player1Score === 0) {
         // Дії, які потрібно виконати, коли player1 = 0
@@ -200,13 +199,6 @@ get(playerRef)
       } else {
         // Дії, які потрібно виконати, коли player1 не дорівнює 0
         console.log("Player 1 score is not 0.");
-      }
-      if (player2Score === 0) {
-        // Дії, які потрібно виконати, коли player1 = 0
-        console.log("Player 2 score is 0.");
-      } else {
-        // Дії, які потрібно виконати, коли player1 не дорівнює 0
-        console.log("Player 2 score is not 0.");
       }
     } else {
       console.log("Data not found.");
