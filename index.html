@@ -185,7 +185,7 @@
     });
 
 function initializePlayerRef() {
-  playerRef = ref(database, "player");
+  playerRef = ref(db, "player");
   // Зчитування даних з бази даних
 get(playerRef)
   .then((snapshot) => {
