@@ -185,23 +185,27 @@
     });
 
     // Отримання посилання на вузол "player"
-var playerRef = db.ref("player");
+const playerRef = db.ref("player");
 
 // Зчитування даних з бази даних
-playerRef.once("value")
-  .then(function(snapshot) {
-    var player = snapshot.val(); // Об'єкт з даними гравців
-    var player1Score = player.player1;
+get(playerRef)
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      const players = snapshot.val();
+      const player1Score = players.player1;
 
-    if (player1Score === 0) {
-      // Дії, які потрібно виконати, коли player1 = 0
-      console.log("Player 1 score is 0.");
+      if (player1Score === 0) {
+        // Дії, які потрібно виконати, коли player1 = 0
+        console.log("Player 1 score is 0.");
+      } else {
+        // Дії, які потрібно виконати, коли player1 не дорівнює 0
+        console.log("Player 1 score is not 0.");
+      }
     } else {
-      // Дії, які потрібно виконати, коли player1 не дорівнює 0
-      console.log("Player 1 score is not 0.");
+      console.log("Data not found.");
     }
   })
-  .catch(function(error) {
+  .catch((error) => {
     console.error("Error reading data:", error);
   });
 </script>
