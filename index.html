@@ -261,10 +261,6 @@ function showPlayerInfo2(id, username, photo_url) {
     const playerRef = ref(db, "player/player2");
     runTransaction(playerRef, (currentData) => {
         return 1; //  значення на 1
-    }).then(() => {
-        console.log("Значення player2 змінено.");
-    }).catch((error) => {
-        console.error("Помилка при зміні значення player2:", error);
     });
 }
 function showInitialView() {
