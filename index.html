@@ -238,13 +238,9 @@ function showPlayerInfo(id, username, photo_url) {
     `;
     isPlayerInfoShown = true;
 
-  const playerRef = ref(db, "player/player1");
+    const playerRef = ref(db, "player/player1");
     runTransaction(playerRef, (currentData) => {
         return 1; //  значення на 1
-    }).then(() => {
-        console.log("Значення player1 змінено.");
-    }).catch((error) => {
-        console.error("Помилка при зміні значення player1:", error);
     });
 }
 
@@ -268,6 +264,11 @@ function showInitialView() {
         <button id="changeStyleButton">Ігрок 1</button>
     `;
     isPlayerInfoShown = false;
+
+      const playerRef = ref(db, "player/player1");
+    runTransaction(playerRef, (currentData) => {
+        return 0; 
+    });
 }
 
 function showInitialView2() {
@@ -275,6 +276,11 @@ function showInitialView2() {
         <button id="changeStyleButton2">Ігрок 2</button>
     `;
     isPlayerInfoShown2 = false;
+
+        const playerRef = ref(db, "player/player2");
+    runTransaction(playerRef, (currentData) => {
+        return 0; 
+    });
 }
 // Передаємо дані користувача для вставки
 blockmain.addEventListener('click', (event) => {
