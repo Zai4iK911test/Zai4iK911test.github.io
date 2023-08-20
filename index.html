@@ -184,10 +184,9 @@
       }
     });
 
-    // Отримання посилання на вузол "player"
-const playerRef = db.ref("player");
-
-// Зчитування даних з бази даних
+function initializePlayerRef() {
+  playerRef = ref(database, "player");
+  // Зчитування даних з бази даних
 get(playerRef)
   .then((snapshot) => {
     if (snapshot.exists()) {
@@ -208,6 +207,12 @@ get(playerRef)
   .catch((error) => {
     console.error("Error reading data:", error);
   });
+}
+
+// Виклик функції при старті
+initializePlayerRef();
+
+
 </script>
  <script>
 
