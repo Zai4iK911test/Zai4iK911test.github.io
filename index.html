@@ -285,17 +285,6 @@ const startButton = document.querySelector('#startButton');
 
 // Додаємо обробник події для натиснення кнопки "START"
 startButton.addEventListener('click', () => {
-    // Отримуємо вибраний режим зі списку вибору
-    const selectedMode = document.querySelector('select').value;
-    
-    // Перенаправляємо користувача на сторінку "1v1.index" з параметром режиму
-    window.location.href = `1v1.index?mode=${encodeURIComponent(selectedMode)}&player1=еуіе`;
-});
-
-// Отримуємо посилання на кнопку "START"
-const startButton = document.querySelector('#startButton');
-// Додаємо обробник події для натиснення кнопки "START"
-startButton.addEventListener('click', () => {
     // Отримуємо дані користувача з бази даних Firebase для "player1"
     const player1Ref = ref(db, "player1");
     get(player1Ref).then((snapshot) => {
@@ -304,7 +293,8 @@ startButton.addEventListener('click', () => {
                 const id = player1Data.id;
                 const username = player1Data.username;
                 const photo_url = player1Data.photo_url;
-                
+                // Отримуємо вибраний режим зі списку вибору
+                const selectedMode = document.querySelector('select').value;
                 // Перенаправляємо користувача на сторінку "1v1.index" з параметрами даних
                 const queryString = `id_1=${encodeURIComponent(id)}&username_1=${encodeURIComponent(username)}&photo_url_1=${encodeURIComponent(photo_url)}`;
                 window.location.href = `1v1.index?mode=${encodeURIComponent(selectedMode)}&${queryString}`;
