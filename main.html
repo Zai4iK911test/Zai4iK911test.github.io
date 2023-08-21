@@ -181,14 +181,13 @@ img {
         const db = getDatabase();
         const number1 = document.querySelector("#number1");
         const number2 = document.querySelector("#number2");
-        const updateButton = document.querySelector("#updateButton");
-        const updateButton2 = document.querySelector("#updateButton2");
-        const newNumberInput = document.querySelector("#newNumber");
-        const newNumberInput2 = document.querySelector("#newNumber2");
+        var n1 = 0;
+        var n2 = 0;
 
         function DisplayCurrentNumber(currentNumber) {
             if (typeof currentNumber === 'number') {
                 number1.textContent = currentNumber;
+                n1 = currentNumber;
             } else {
                 number1.textContent = "Invalid data";
             }
@@ -197,6 +196,7 @@ img {
         function DisplayCurrentNumber2(currentNumber2) {
             if (typeof currentNumber2 === 'number') {
                 number2.textContent = currentNumber2;
+                n2 = currentNumber2;
             } else {
                 number2.textContent = "Invalid data";
             }
@@ -242,6 +242,15 @@ let t = document.querySelector('time');
 t.started = new Date;
 t.update = ms => t.innerHTML = new Date(ms).toISOString().split(/T|\./)[1]
 setInterval(() => t.update(new Date - t.started), 500);
+
+
+const FinishButton = document.querySelector('#FinishButton');
+
+FinishButton.addEventListener('click', () => {
+
+ window.location.href = `save.html?id_1=`+id_1+`&id_2=`+id_2+`&n1=`+n1+`&n2=`+n2+`&time=`+t.innerHTML;
+
+});
     </script>
 
 </body>
