@@ -242,7 +242,7 @@ startButton.addEventListener('click', () => {
                 // Отримуємо вибраний режим зі списку вибору
                 const selectedMode = document.querySelector('select').value;
                 // Перенаправляємо користувача на сторінку "1v1.index" з параметрами даних
-                const queryString1 = `$id_1=${encodeURIComponent(id)}&username_1=${encodeURIComponent(username)}&photo_url_1=${encodeURIComponent(photo_url)}`;
+                const queryString1 = `&id_1=${encodeURIComponent(id)}&username_1=${encodeURIComponent(username)}&photo_url_1=${encodeURIComponent(photo_url)}`;
               
                   const player2Ref = ref(db, "player2");
                   get(player2Ref).then((snapshot) => {
@@ -252,7 +252,7 @@ startButton.addEventListener('click', () => {
                       const username = player2Data.username;
                       const photo_url = player2Data.photo_url;
                       
-                      const queryString2 = `$id_2=${encodeURIComponent(id)}&username_2=${encodeURIComponent(username)}&photo_url_2=${encodeURIComponent(photo_url)}`;
+                      const queryString2 = `&id_2=${encodeURIComponent(id)}&username_2=${encodeURIComponent(username)}&photo_url_2=${encodeURIComponent(photo_url)}`;
                     
                       window.location.href = `main.index?mode=${encodeURIComponent(selectedMode)}${queryString1}${queryString2}`;
               } 
