@@ -254,7 +254,7 @@ startButton.addEventListener('click', () => {
                       
                       const queryString2 = `&id_2=${encodeURIComponent(id)}&username_2=${encodeURIComponent(username)}&photo_url_2=${encodeURIComponent(photo_url)}`;
                     
-                      window.location.href = `main.index?mode=${encodeURIComponent(selectedMode)}${queryString1}${queryString2}`;
+                      window.location.href = `main.html?mode=${encodeURIComponent(selectedMode)}${queryString1}${queryString2}`;
               } 
           });
             } 
