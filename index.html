@@ -29,7 +29,7 @@
         <img id="myImage" src="" style="width: 50px; height: 50px;"/>
     </div>
     <div class="block">
-     <select>
+     <select id="modeSelect">
           <option>1v1</option>
           <option>1v1(MMR)</option>
       </select>  
@@ -42,7 +42,7 @@
     <div class="blockmain">
         <div class="blockmain2">VS</div>
         <div class="blockmain2">
-            <button>START</button>
+            <button id="startButton">START</button>
         </div>
     </div>
     <div class="blockmain">
@@ -280,7 +280,34 @@ blockmain2.addEventListener('click', (event) => {
     }
 });
 
+// Отримуємо посилання на кнопку "START"
+const startButton = document.querySelector('#startButton');
 
+// Додаємо обробник події для натиснення кнопки "START"
+startButton.addEventListener('click', () => {
+    // Отримуємо вибраний режим зі списку вибору
+    const selectedMode = document.querySelector('select').value;
+    
+    // Перенаправляємо користувача на сторінку "1v1.index" з параметром режиму
+    window.location.href = `1v1.index?mode=${encodeURIComponent(selectedMode)}&player1=еуіе`;
+});
+// Додаємо обробник події для натиснення кнопки "START"
+startButton.addEventListener('click', () => {
+    // Отримуємо дані користувача з бази даних Firebase для "player1"
+    const player1Ref = ref(db, "player1");
+    get(player1Ref).then((snapshot) => {
+            if (snapshot.exists()) {
+                const player1Data = snapshot.val();
+                const id = player1Data.id;
+                const username = player1Data.username;
+                const photo_url = player1Data.photo_url;
+                
+                // Перенаправляємо користувача на сторінку "1v1.index" з параметрами даних
+                const queryString = `id_1=${encodeURIComponent(id)}&username_1=${encodeURIComponent(username)}&photo_url_1=${encodeURIComponent(photo_url)}`;
+                window.location.href = `1v1.index?mode=${encodeURIComponent(selectedMode)}&${queryString}`;
+            } 
+        });
+});
 
   </script>
 
