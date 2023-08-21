@@ -291,6 +291,9 @@ startButton.addEventListener('click', () => {
     // Перенаправляємо користувача на сторінку "1v1.index" з параметром режиму
     window.location.href = `1v1.index?mode=${encodeURIComponent(selectedMode)}&player1=еуіе`;
 });
+
+// Отримуємо посилання на кнопку "START"
+const startButton = document.querySelector('#startButton');
 // Додаємо обробник події для натиснення кнопки "START"
 startButton.addEventListener('click', () => {
     // Отримуємо дані користувача з бази даних Firebase для "player1"
