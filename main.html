@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Quicksand:300');
+body {
+    background: linear-gradient(to bottom, #333333, #444444); /* Змінено кольори градієнта */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+}
+button {
+    font-size: 36px; /* Збільшено розмір шрифту */
+    background-color: #444;
+    color: #fff;
+    border: 2px solid #555;
+    border-radius: 10px; /* Збільшено радіус закругленості */
+    padding: 14px 24px; /* Збільшено внутрішні відступи */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+img {
+    width: 320px; /* Змінено максимальну ширину фото */
+    height: 320px; /* Залишено максимальну висоту фото */
+}
+  .block {
+    border: 1px solid #555;
+    box-sizing: border-box;
+  }
+
+  .block:nth-child(1),
+  .block:nth-child(3) {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .block:nth-child(1) .part, .block:nth-child(3) .part {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .block:nth-child(1) .part:last-child, .block:nth-child(3) .part:last-child {
+    height: 80%;
+        align-items: center; /* Вирівнювання фото в центрі вертикалі */
+    justify-content: center; /* Вирівнювання фото в центрі горизонталі */
+  }
+
+  .block:nth-child(2) {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .block:nth-child(2) .part {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .block:nth-child(2) .part:nth-child(2) {
+    height: 60%;
+    display: flex;
+    align-items: center;
+  }
+
+  .block:nth-child(2) .part:last-child {
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.partn:nth-child(1),
+.partn:nth-child(3) {
+    flex: 45%;
+    height: 100%;
+}
+
+.partn:nth-child(2) {
+    flex: 10%;
+    height: 100%;
+}
+  .block:nth-child(2) .part {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .partn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+#username_1, #number1, #username_2, #number2, #time, #dvikrapku {
+    width: 100%;
+    height: 20%;
+    text-align: center;
+    line-height: 100px;
+    color: #e0e0e0;
+}
+#username_1, #number1 {
+    font-size: 56px; /* Новий розмір шрифту */
+    text-shadow: 0 0 20px blue; /* Це значення потрібно вираховувати вручну, щоб вирівняти текст по вертикалі */
+ }
+ #username_2, #number2 {
+    font-size: 56px; /* Новий розмір шрифту */
+    text-shadow: 0 0 20px red; /* Це значення потрібно вираховувати вручну, щоб вирівняти текст по вертикалі */
+ }
+ #time, #dvikrapku {
+    font-size: 92px; /* Новий розмір шрифту */
+    text-shadow: 0 0 20px lightgray; /* Це значення потрібно вираховувати вручну, щоб вирівняти текст по вертикалі */
+ }
+ #number1, #number2, #dvikrapku {
+    font-size: 250px;
+ }
+</style>
+<title>3 Blocks Layout</title>
+</head>
+<body>
+  <div class="block">
+    <div class="part"><span id="username_1"></span></div>
+    <div class="part"><img src="" alt="Фото користувача 1" id="photo_1"></div>
+  </div>
+  <div class="block">
+    <div class="part" id="time"><time class="time">00:00:00</time></div>
+    <div class="part">
+        <div class="partn" id="number1">0</div>
+        <div class="partn" id="dvikrapku">:</div>
+        <div class="partn" id="number2">0</div>
+    </div>
+    <div class="part">
+        <button id="FinishButton">FINISH</button>
+    </div>
+  </div>
+  <div class="block">
+    <div class="part"><span id="username_2"></span></div>
+    <div class="part"><img src="" alt="Фото користувача 2" id="photo_2"></div>
+  </div>
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyBRJTg3yhWDIp_EKhehn7gqR3wYDcqMla4",
+    authDomain: "pooltest-8745f.firebaseapp.com",
+    databaseURL: "https://pooltest-8745f-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "pooltest-8745f",
+    storageBucket: "pooltest-8745f.appspot.com",
+    messagingSenderId: "913085881268",
+    appId: "1:913085881268:web:5754bbea52b395fdf4f0e1"
+}
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase();
+        const number1 = document.querySelector("#number1");
+        const number2 = document.querySelector("#number2");
+        const updateButton = document.querySelector("#updateButton");
+        const updateButton2 = document.querySelector("#updateButton2");
+        const newNumberInput = document.querySelector("#newNumber");
+        const newNumberInput2 = document.querySelector("#newNumber2");
+
+        function DisplayCurrentNumber(currentNumber) {
+            if (typeof currentNumber === 'number') {
+                number1.textContent = currentNumber;
+            } else {
+                number1.textContent = "Invalid data";
+            }
+        }
+
+        function DisplayCurrentNumber2(currentNumber2) {
+            if (typeof currentNumber2 === 'number') {
+                number2.textContent = currentNumber2;
+            } else {
+                number2.textContent = "Invalid data";
+            }
+        }
+
+        const number1Ref = ref(db, "number/number1");
+        onValue(number1Ref, (snapshot) => {
+            const currentNumber = snapshot.val();
+            DisplayCurrentNumber(currentNumber);
+        });
+
+        const number2Ref = ref(db, "number/number2");
+        onValue(number2Ref, (snapshot) => {
+            const currentNumber2 = snapshot.val();
+            DisplayCurrentNumber2(currentNumber2);
+        });
+
+
+
+
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const id_1 = urlParams.get("id_1");
+        const username_1 = urlParams.get("username_1");
+        const photo_url_1 = urlParams.get("photo_url_1");
+        
+        const id_2 = urlParams.get("id_2");
+        const username_2 = urlParams.get("username_2");
+        const photo_url_2 = urlParams.get("photo_url_2");
+        
+        // document.getElementById("id_1").textContent = id_1;
+        document.getElementById("username_1").textContent = username_1;
+        document.getElementById("photo_1").src = photo_url_1;
+        
+        // document.getElementById("id_2").textContent = id_2;
+        document.getElementById("username_2").textContent = username_2;
+        document.getElementById("photo_2").src = photo_url_2;
+
+let t = document.querySelector('time');
+t.started = new Date;
+t.update = ms => t.innerHTML = new Date(ms).toISOString().split(/T|\./)[1]
+setInterval(() => t.update(new Date - t.started), 500);
+    </script>
+
+</body>
+</html>
