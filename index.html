@@ -107,7 +107,7 @@
     </div>
     <div class="block">
         <span id="usernameSpan">Ви не авторизувались</span>
-        <img src="images/avatar-profil.jfif" style="width: 50px; height: 50px;"/>
+        <img id="myImage" src="" style="width: 50px; height: 50px;"/>
     </div>
     <div class="block">
      <select>
@@ -197,6 +197,7 @@
       } else {
         console.log("Користувач вже існує у базі даних.");
         document.getElementById('usernameSpan').textContent = userData.username; // Вставка нікнейму користувача
+        document.getElementById('myImage').scr = userData.photo_url;
       }
     });
     
