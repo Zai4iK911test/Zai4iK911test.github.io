@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300');
+body {
+    background: linear-gradient(to bottom, #333333, #444444); /* Змінено кольори градієнта */
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+}
+
+  header {
+    display: flex;
+    height: 10vh;
+    width: 100vw;
+    background: linear-gradient(to bottom, #222222, #333333);
+  }
+  .block {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #444;
+  }
+  .blockmain {
+  	flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .block:nth-child(1), .block:nth-child(2) {
+    flex-basis: 40%;
+  }
+  .block:nth-child(3) {
+    flex-basis: 20%;
+  }
+  .main {
+    display: flex;
+    height: 90vh;
+    width: 100vw;
+  }
+  .blockmain:nth-child(1), .blockmain:nth-child(3) {
+    flex-basis: 40%;
+  }
+  .blockmain:nth-child(2) {
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+  }
+  .blockmain2 {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 152px; /* Збільшено розмір шрифту */
+    color: white; /* Встановлено білий колір тексту */
+    text-shadow: 0 0 20px lightgray;
+  }
+  .blockmain2:nth-child(1), .blockmain2:nth-child(2) {
+    flex-basis: 50%;
+  }
+  .blockmain2:nth-child(1) {
+    align-items: flex-end;
+  }
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+}
+
+
+.nickname {
+	width: 100%;
+    height: 20%;
+    text-align: center;
+    line-height: 100px;
+    font-size: 56px; /* Новий розмір шрифту */
+    color: #e0e0e0; /* Новий колір тексту (бідгі) */
+    text-shadow: 0 0 20px lightgray; /* Це значення потрібно вираховувати вручну, щоб вирівняти текст по вертикалі */
+ }
+
+.photo {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+	align-items: flex-start;
+}
+.photo img {
+    width: 320px; /* Змінено максимальну ширину фото */
+    height: 320px; /* Залишено максимальну висоту фото */
+}
+select {
+    text-align: center; 
+    font-size: 32px;
+    width: 90%;
+    height: 90%;
+    background-color: #444; /* Змінено кольорь фону на трохи світліший */
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+#usernameSpan {
+    margin-right: 20px;
+    font-size: 24px; /* Новий розмір шрифту */
+    color: #e0e0e0; /* Новий колір тексту (бідгі) */
+    text-shadow: 0 0 20px lightgray;
+}
+/* Оновлені стилі для кнопок з більшими розмірами */
+button {
+    font-size: 36px; /* Збільшено розмір шрифту */
+    background-color: #444;
+    color: #fff;
+    border: 2px solid #555;
+    border-radius: 10px; /* Збільшено радіус закругленості */
+    padding: 14px 24px; /* Збільшено внутрішні відступи */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+
