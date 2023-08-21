@@ -84,6 +84,8 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+        display: flex;
+    flex-direction: column;
   }
 
 .partn:nth-child(1),
@@ -130,6 +132,11 @@ img {
  #number1, #number2, #dvikrapku {
     font-size: 250px;
  }
+ #mode {
+    font-size: 24px;
+    text-shadow: 0 0 20px lightgray;
+     color: #e0e0e0;
+ }
 </style>
 <title>3 Blocks Layout</title>
 </head>
@@ -139,13 +146,16 @@ img {
     <div class="part"><img src="" alt="Фото користувача 1" id="photo_1"></div>
   </div>
   <div class="block">
-    <div class="part" id="time"><time class="time">00:00:00</time></div>
+    <div class="part" id="time">
+        <time class="time">00:00:00</time>
+    </div>
     <div class="part">
         <div class="partn" id="number1">0</div>
         <div class="partn" id="dvikrapku">:</div>
         <div class="partn" id="number2">0</div>
     </div>
     <div class="part">
+        <span id="mode"></span>
         <button id="FinishButton">FINISH</button>
     </div>
   </div>
@@ -217,6 +227,9 @@ img {
         const username_2 = urlParams.get("username_2");
         const photo_url_2 = urlParams.get("photo_url_2");
         
+        const mode = urlParams.get("mode");
+
+        document.getElementById("mode").textContent = mode;
         // document.getElementById("id_1").textContent = id_1;
         document.getElementById("username_1").textContent = username_1;
         document.getElementById("photo_1").src = photo_url_1;
