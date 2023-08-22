@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Quicksand:300');
+body {
+    background: linear-gradient(to bottom, #333333, #444444); /* Змінено кольори градієнта */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    font-family: 'Quicksand', sans-serif;
+}
+button {
+    font-size: 36px; /* Збільшено розмір шрифту */
+    background-color: #444;
+    color: #fff;
+    border: 2px solid #555;
+    border-radius: 10px; /* Збільшено радіус закругленості */
+    padding: 14px 24px; /* Збільшено внутрішні відступи */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #555;
+}
+img {
+    width: 320px; /* Змінено максимальну ширину фото */
+    height: 320px; /* Залишено максимальну висоту фото */
+}
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+.block {
+        display: flex;
+    align-items: center;
+    justify-content: center;
+        text-align: center;
+    line-height: 100px;
+    color: #e0e0e0;
+     text-shadow: 0 0 20px lightgray;
+}
+.block:nth-child(1), .block:nth-child(2), .block:nth-child(4) {
+    width: 100vh;
+    height: 20%;
+}
+.block:nth-child(3) {
+    width: 100vh;
+    height: 40%;
+}
+.block:nth-child(1), .block:nth-child(3) {
+    background-color: #444;
+    font-size: 92px;
+}
+.block:nth-child(2) {
+    font-size: 152px;
+}
+@media screen and (min-width: 1280px) and (max-width: 1280px) and (min-height: 720px) and (max-height: 720px) {
+    img {
+        width: 220px; /* Змінено максимальну ширину фото */
+        height: 220px; /* Залишено максимальну висоту фото */
+    }
+}
+@media (max-width: 768px) {
+    #username {
+        font-size: 92px;
+    }
+    button {
+        font-size: 18px;
+    }
+}
+</style>
+<title>POOL</title>
+</head>
+<body>
+<div class="main"> 
+    <div class="block">You Win</div>
+    <div class="block" id="username"></div>
+    <div class="block"><img src="" alt="Фото користувача" id="photo"></div>
+    <div class="block"><button id="Button">Повернутись на головну сторінку</button></div>
+</div>
+
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+       import { getDatabase, ref, push, set, orderByChild, equalTo, get, runTransaction, child, onValue } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyBRJTg3yhWDIp_EKhehn7gqR3wYDcqMla4",
+    authDomain: "pooltest-8745f.firebaseapp.com",
+    databaseURL: "https://pooltest-8745f-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "pooltest-8745f",
+    storageBucket: "pooltest-8745f.appspot.com",
+    messagingSenderId: "913085881268",
+    appId: "1:913085881268:web:5754bbea52b395fdf4f0e1"
+}
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const id_1 = urlParams.get("id_1");
+const id_2 = urlParams.get("id_2");
+const n1 = parseInt(urlParams.get("n1"));
+const n2 = parseInt(urlParams.get("n2"));
+const time = urlParams.get("time");
+const score = n1 + ':' + n2;
+
+const currentDate = new Date();
+const year = currentDate.getFullYear();
+const month = currentDate.getMonth() + 1;
+const day = currentDate.getDate();
+const hours = currentDate.getHours();
+const minutes = currentDate.getMinutes();
+const seconds = currentDate.getSeconds();
+// Об'єднання дати і часу в одну змінну
+const datetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+let lastPlayId = 0; // Початкове значення
+
+if (n1 > n2) {
+    const player1Ref = ref(db, "users/" + id_1);
+    onValue(player1Ref, (snapshot) => {
+        if (snapshot.exists()) {
+            const player1Data = snapshot.val();
+            const id = player1Data.id;
+            const username = player1Data.username;
+            const photo_url = player1Data.photo_url;
+            document.getElementById("username").textContent = username;
+            document.getElementById("photo").src = photo_url;
+        }
+    });
+            // Отримати останній інкремент
+            get(child(ref(db), "lastPlayId"))
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        lastPlayId = snapshot.val();
+                    }
+                    
+                    const newPlayKey = lastPlayId + 1; // Збільшити значення інкременту для нового ідентифікатору
+                    const newPlayRef = ref(db, "play/" + newPlayKey);
+                    
+                    const playData = {
+                        win: id_1,
+                        loss: id_2,
+                        score: score,
+                        time: time,
+                        datetime: datetime
+                    };
+                    
+                    set(newPlayRef, playData)
+                        .then(() => {
+                            console.log("Дані успішно записані до бази даних");
+                            // Оновити останній інкремент
+                            set(ref(db, "lastPlayId"), newPlayKey);
+                        })
+                });
+} else if (n2 > n1) {
+    const player2Ref = ref(db, "users/" + id_2);
+    onValue(player2Ref, (snapshot) => {
+        if (snapshot.exists()) {
+            const player2Data = snapshot.val();
+            const id = player2Data.id;
+            const username = player2Data.username;
+            const photo_url = player2Data.photo_url;
+            document.getElementById("username").textContent = username;
+            document.getElementById("photo").src = photo_url;
+        }
+    });
+                // Отримати останній інкремент
+            get(child(ref(db), "lastPlayId"))
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        lastPlayId = snapshot.val();
+                    }
+                    
+                    const newPlayKey = lastPlayId + 1; // Збільшити значення інкременту для нового ідентифікатору
+                    const newPlayRef = ref(db, "play/" + newPlayKey);
+                    
+                    const playData = {
+                        win: id_2,
+                        loss: id_1,
+                        score: score,
+                        time: time,
+                        datetime: datetime
+                    };
+                    
+                    set(newPlayRef, playData)
+                        .then(() => {
+                            console.log("Дані успішно записані до бази даних");
+                            // Оновити останній інкремент
+                            set(ref(db, "lastPlayId"), newPlayKey);
+                        })
+                });
+}
+
+const Button = document.querySelector('#Button');
+
+Button.addEventListener('click', () => {
+    window.location.href = `index.html`;
+});
+</script>
+</body>
+</html>
