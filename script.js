@@ -5,13 +5,17 @@
   const last_name = urlParams.get('last_name');
   const username = urlParams.get('username');
   const photo_url = urlParams.get('photo_url');
+const win = 0;
+const loss = 0;
 
   const userData = {
     id: id,
     first_name: first_name,
     last_name: last_name,
     username: username,
-    photo_url: photo_url
+    photo_url: photo_url,
+    win: win,
+    loss: loss
   };
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
         import { getDatabase, ref, push, set, orderByChild, equalTo, get, runTransaction, child } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js";
