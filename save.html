@@ -163,6 +163,16 @@ if (n1 > n2) {
                             set(ref(db, "lastPlayId"), newPlayKey);
                         })
                 });
+
+const playerWinRef = ref(db, "users/" + id_1 + "/win");
+    runTransaction(playerWinRef, (currentData) => {
+        return ++currentData;
+    });
+const playerLossRef = ref(db, "users/" + id_2 + "/loss");
+    runTransaction(playerLossRef, (currentData) => {
+        return ++currentData;
+    });
+
 } else if (n2 > n1) {
     const player2Ref = ref(db, "users/" + id_2);
     onValue(player2Ref, (snapshot) => {
@@ -200,6 +210,16 @@ if (n1 > n2) {
                             set(ref(db, "lastPlayId"), newPlayKey);
                         })
                 });
+
+const playerWinRef = ref(db, "users/" + id_2 + "/win");
+    runTransaction(playerWinRef, (currentData) => {
+        return ++currentData;
+    });
+const playerLossRef = ref(db, "users/" + id_1 + "/loss");
+    runTransaction(playerLossRef, (currentData) => {
+        return ++currentData;
+    });
+
 }
 
 const Button = document.querySelector('#Button');
