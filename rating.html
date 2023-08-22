@@ -81,7 +81,7 @@ get(usersRef).then((snapshot) => {
 
         sortedUsers.forEach((user) => {
             const rowClass = isEvenRow ? 'even' : 'odd';
-            leaderboardTable += `<tr class="${rowClass}"><td class="username">${user.username}</td><td><img src="${user.photo_url}" alt="Фото користувача"></td><td class="win">${user.win}</td><td class="loss">${user.loss}</td><td>${user.win + user.loss}</td></tr>`;
+            leaderboardTable += `<tr class="${rowClass}"><td class="username">${user.username}</td><td><img src="${user.photo_url}" alt=""></td><td class="win">${user.win}</td><td class="loss">${user.loss}</td><td>${user.win + user.loss}</td></tr>`;
             isEvenRow = !isEvenRow; // Зміна поточного статусу рядка (парний/непарний)
         });
 
